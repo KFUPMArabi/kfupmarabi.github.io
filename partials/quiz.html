@@ -95,6 +95,7 @@
         </div>
         <div class="div-block-8">
           <div class="div-block-9"><a ng-if="next_id" class="button-3 w-button" ui-sref="app.quiz({ id: lesson, qid:next_id })">Skip</a>
+            <a ng-if="!next_id" class="button w-button" ng-click="save()">Save</a>
           </div>
         </div>
       </div>

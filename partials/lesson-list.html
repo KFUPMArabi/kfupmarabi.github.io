@@ -2,7 +2,7 @@
         <div class="courseswrapper w-container">
         <div class="coursegroup litteli" ng-repeat="group in lessons_group">
           <div class="courseholder" ng-repeat="lesson in group.lessons">
-            <a class="link-block-2 w-inline-block"  ui-sref="app.lesson({ id: lesson.id })">
+            <a class="link-block-2 w-inline-block"  ui-sref="app.lesson({ id: lesson.id, gid: group.id })">
               <div class="floatleft">
                 <div class="imagecourseholder"><img class="courseimage" ng-src="{{lesson.icon}}">
                 </div>

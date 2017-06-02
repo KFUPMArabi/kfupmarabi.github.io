@@ -26,7 +26,7 @@ angular.module('arabi', ['ui.router','ngCookies'])
                 templateUrl: 'partials/lesson-list.html',
                 controller: 'courseCtrl'
             }).state('app.lesson', {
-                url: '/lesson/:id/abstract',
+                url: '/lesson/:gid/:id/abstract',
                 templateUrl: 'partials/lesson.html',
                 controller: 'lessonCtrl'
             }).state('app.store', {
@@ -52,7 +52,7 @@ angular.module('arabi', ['ui.router','ngCookies'])
                 templateUrl: 'partials/signup.html',
                 controller: 'loginCtrl'
             }).state('app.quiz', {
-                url: '/lesson/:id/quiz/:qid',
+                url: '/lesson/:gid/:id/quiz/:qid',
                 templateUrl: 'partials/quiz.html',
                 controller: 'quizCtrl'
             });
@@ -83,7 +83,10 @@ angular
         $cookies.put('correct_answers', '0');
         $cookies.put('wrong_answers', '0');
 
-        $scope.lessons_group = [
+        $scope.lessons_group = angular.fromJson($cookies.get('lessons_group'));
+
+        if(!$scope.lessons_group){
+            $scope.lessons_group = [
             {
                 "name": "A",
                 "description": "Test out of 5 skills",
@@ -93,7 +96,7 @@ angular
                         "id": 0,
                         "name": "Learn Arabic",
                         "description": "Most Phases spoken at a language",
-                        "progress": 100,
+                        "progress": 0,
                         "icon": "images/ex1.png"
 
                     },
@@ -101,7 +104,7 @@ angular
                         "id": 1,
                         "name": "Learn Arabic",
                         "description": "Most Phases spoken at a language",
-                        "progress": 60,
+                        "progress": 0,
                         "icon": "images/ex2.png"
 
                     },
@@ -109,7 +112,7 @@ angular
                         "id": 2,
                         "name": "Learn Arabic",
                         "description": "Most Phases spoken at a language",
-                        "progress": 30,
+                        "progress": 0,
                         "icon": "images/ex3.png"
 
                     }
@@ -124,7 +127,7 @@ angular
                         "id": 0,
                         "name": "Learn Arabic",
                         "description": "Most Phases spoken at a language",
-                        "progress": 60,
+                        "progress": 0,
                         "icon": "images/ex1.png"
 
                     },
@@ -132,7 +135,7 @@ angular
                         "id": 1,
                         "name": "Learn Arabic",
                         "description": "Most Phases spoken at a language",
-                        "progress": 60,
+                        "progress": 0,
                         "icon": "images/ex2.png"
 
                     },
@@ -140,7 +143,7 @@ angular
                         "id": 2,
                         "name": "Learn Arabic",
                         "description": "Most Phases spoken at a language",
-                        "progress": 60,
+                        "progress": 0,
                         "icon": "images/ex3.png"
 
                     }
@@ -155,7 +158,7 @@ angular
                         "id": 0,
                         "name": "Learn Arabic",
                         "description": "Most Phases spoken at a language",
-                        "progress": 60,
+                        "progress": 0,
                         "icon": "images/ex1.png"
 
                     },
@@ -163,7 +166,7 @@ angular
                         "id": 1,
                         "name": "Learn Arabic",
                         "description": "Most Phases spoken at a language",
-                        "progress": 60,
+                        "progress": 0,
                         "icon": "images/ex2.png"
 
                     },
@@ -171,16 +174,19 @@ angular
                         "id": 2,
                         "name": "Learn Arabic",
                         "description": "Most Phases spoken at a language",
-                        "progress": 60,
+                        "progress": 0,
                         "icon": "images/ex3.png"
 
                     }
                 ]
             }];
+            $cookies.put('lessons_group', angular.toJson($scope.lessons_group));
+        }
     }])
 
-    .controller('lessonCtrl', ['$scope', function ($scope) {
+    .controller('lessonCtrl', ['$scope','$stateParams', function ($scope,$stateParams) {
         $scope.lesson = 0;
+        $scope.lesson_group_id = $stateParams.gid;;
         console.log("Now we are here!");
         }])
     .controller('storeCtrl', ['$scope', function ($scope) {
@@ -229,9 +235,10 @@ angular
         console.log("Now we are here!signupCtrl");
     }])
 
-    .controller('quizCtrl', ['$scope','$stateParams','$cookies', function ($scope,$stateParams,$cookies) {
+    .controller('quizCtrl', ['$scope','$stateParams','$cookies','$location', function ($scope,$stateParams,$cookies,$location) {
 
         $scope.lesson = $stateParams.id;
+        $scope.lesson_group_id = $stateParams.gid;
 
         $scope.disable_item = false;
 
@@ -367,7 +374,7 @@ angular
 
             if(answer.isCorrect){
                 $scope.show_correct = true;
-                answer.opCorrect=true;
+                answer.opCorrect = true;
                 var correct_answers = parseInt($cookies.get('correct_answers'));
                 correct_answers++;
                 $cookies.put('correct_answers', ''+correct_answers);
@@ -386,6 +393,22 @@ angular
             $scope.show_wrong = false;
 
         };
+
+        $scope.save = function(){
+            $scope.lessons_group = angular.fromJson($cookies.get('lessons_group'));
+            console.log($scope.lessons_group);
+            var i = 0;
+            for(var j=0;j<$scope.lessons_group.length;j++){
+                if($scope.lessons_group[j].id == $scope.lesson_group_id){
+                    i = j;
+                }
+            }
+
+            $scope.lessons_group[i].lessons[$scope.lesson].progress = parseInt($cookies.get('correct_answers'))*100/$scope.questions.length;
+            $cookies.put('lessons_group', angular.toJson($scope.lessons_group));
+            $location.path( "/app/course" );
+        };
+
 
         $scope.current_quiz_id = $stateParams.qid;
         $scope.question = $scope.questions[$scope.current_quiz_id];
