@@ -187,7 +187,18 @@ angular
 
         console.log("Now we are here!storeCtrl");
     }])
-    .controller('profileCtrl', ['$scope', function ($scope) {
+    .controller('profileCtrl', ['$scope','$cookies', function ($scope,$cookies) {
+        $scope.user = angular.fromJson($cookies.get('user'));
+
+        if(!$scope.user){
+            console.log("We got you!");
+            $scope.user = {
+                "name":"Abdullah ALyami",
+                "level":"Beginner",
+                "avatar":"images/User.png"
+            }
+            $cookies.put('user', angular.toJson($scope.user));
+        }
 
         console.log("Now we are here!profile");
     }])
