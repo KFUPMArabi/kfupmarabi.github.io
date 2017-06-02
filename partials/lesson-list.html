@@ -1,0 +1,43 @@
+ <div class="maincontent">
+        <div class="courseswrapper w-container">
+        <div class="coursegroup litteli" ng-repeat="group in lessons_group">
+          <div class="courseholder" ng-repeat="lesson in group.lessons">
+            <a class="link-block-2 w-inline-block"  ui-sref="app.lesson({ id: lesson.id })">
+              <div class="floatleft">
+                <div class="imagecourseholder"><img class="courseimage" ng-src="{{lesson.icon}}">
+                </div>
+                <div class="i profileinfo">
+                  <div class="profilename">Lesson {{lesson.id}} : {{lesson.name}}</div>
+                  <div class="profilelevel">{{lesson.description}}</div>
+                </div>
+              </div>
+              <div class="floatright">
+                  <div class="progress progress-margin">
+                    <div class="progress-bar " ng-class="{'progress-bar-success' : lesson.progress == 100 , 'progress-bar-warning' : lesson.progress != 100 }" role="progressbar" aria-valuenow="{{lesson.progress}}"
+                         aria-valuemin="0" aria-valuemax="100" style="width:{{lesson.progress}}%">
+                      {{lesson.progress}}%
+                    </div>
+                  </div>
+
+              </div>
+            </a>
+          </div>
+          <div class="courseholder testnomargin">
+            <div class="div-block">
+              <div class="floatleft">
+                <div class="profileinfo">
+                  <div class="text-block">{{group.description}}</div>
+                </div>
+              </div>
+              <div class="floatright">
+                <div class="profileinfo">
+                  <div class="div-block-2"><a class="button-2 w-button" href="{{group.id}}">Test Out</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>

@@ -1,0 +1,39 @@
+<div class="boxHeader secondheader">
+      <div class="headerwrapper w-container">
+        <div class="floatleft">
+          <a class="link-block w-inline-block" ui-sref="app.profile">
+            <div class="profimageholder"><img ng-src="{{user.avatar}}">
+            </div>
+            <div class="infoholder">
+              <div class="profileinfo">
+                <div class="profilename">{{user.name}}</div>
+                <div class="profilelevel">{{user.level}}</div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="floatright">
+          <div class="achivementpart">
+            <div ng-if="user.level=='Beginner'" class="achive"><img class="achiveimage" src="images/hook.png" width="31">
+              <div class="achivetxt txtcolr">Beginner</div>
+            </div>
+            <div ng-if="user.level!='Beginner'" class="achive"><img class="achiveimage" src="images/flag.png" width="31">
+              <div class="achivetxt">Beginner</div>
+            </div>
+            
+            
+            <div class="_2 achive"><img class="achiveimage" src="images/flag.png">
+              <div class="achivetxt">Elementary</div>
+            </div>
+            <div class="achive"><img class="achiveimage" src="images/medal.png">
+              <div class="achivetxt">Intermediate</div>
+            </div>
+            <div class="_5 achive"><img class="achiveimage" src="images/cup.png">
+              <div class="achivetxt">Professional</div>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="boxContent box" ui-view="">
+    </div>

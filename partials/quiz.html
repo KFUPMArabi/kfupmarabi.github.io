@@ -1,0 +1,101 @@
+
+    <div class="centered">
+      <div class="container w-container">
+        <div class="div-block-18">
+          <div class="div-block-20">
+            <div class="mrgs text-block-7">{{question.title}}</div>
+          </div>
+          <div class="div-block-19">
+            <div class="div-block-17" ng-class="{ 'correct-op': option.opCorrect,'wrong-op': option.opWrong }" ng-repeat="option in question.options">
+              <img ng-src="{{option.icon}}">
+              <div>
+                <div class="text-block-5">{{option.answer}}</div>
+                <div class="text-block-6">{{option.description}}</div>
+                <button class="text-block-6 spacer full-width" ng-disabled="disable_item" ng-click="choose(option)">Choose</button>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      <div ng-if="!next_id" class="profileborder">
+        <div class="quizsam">
+          <div class="div-block-33">
+            <div class="div-block-39">
+              <div class="text-block-11">Congratulation, your test result is :</div>
+              <div class="div-block-36">
+                <div class="div-block-37 dvider">
+                  <div class="div-block-38">
+                    <div class="correct text-block-19">{{correct_answers}}/{{questions.length}}</div>
+                    <div class="text-block-18">Correct&nbsp;Answers</div>
+                  </div>
+                </div>
+                <div class="div-block-37">
+                  <div>
+                    <div class="text-block-19 wrong">{{wrong_answers}}/{{questions.length}}</div>
+                    <div class="text-block-18">Wrong Answers</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="quizfooter">
+     
+      <div class="quizcontorl w-container" ng-if="show_correct">
+        <div class="div-block-12">
+          <div class="div-block-23"><img class="image-2" src="images/correct.png">
+          </div>
+          <div class="div-block-24">
+            <div>
+              <div class="text-block-13">Correct Solution :</div>
+            </div>
+          </div>
+        </div>
+        <div class="div-block-13">
+          <div class="div-block-14"><a class="checkbutton slmr w-button" ng-click="hide()" ui-sref="app.quiz({ id: lesson, qid:next_id })">Continue</a>
+          </div>
+        </div>
+      </div>
+            <div class="quizcontorl w-container" ng-if="show_wrong">
+        <div class="div-block-12">
+          <div class="div-block-23"><img class="image-2" src="images/wrong.png">
+          </div>
+          <div class="div-block-24">
+            <div>
+              <div class="text-block-13">wrong Solution :</div>
+            </div>
+          </div>
+        </div>
+        <div class="div-block-13">
+          <div class="div-block-14"><a class="checkbutton slmr w-button" ng-click="hide()" ui-sref="app.quiz({ id: lesson, qid:next_id })">Continue</a>
+          </div>
+        </div>
+      </div>
+      <div class="quizcontorl w-container" ng-hide="show_correct || show_wrong" >
+        <div class="div-block-6">
+          <div class="text-block-3 title">Quiz 1: Basic</div>
+        </div>
+        <div class="div-block-7">
+          <div class="achivementpart">
+            <div class="div-block-16">
+
+              <div class="progress progress-margin" style="min-width: 400px">
+                <div class="progress-bar " ng-class="{'progress-bar-success' : lesson.progress == 100 , 'progress-bar-warning' : lesson.progress != 100 }" role="progressbar" aria-valuenow="{{progress}}"
+                     aria-valuemin="0" aria-valuemax="100" style="width:{{progress}}%">
+                  {{progress}}%
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="div-block-8">
+          <div class="div-block-9"><a ng-if="next_id" class="button-3 w-button" ui-sref="app.quiz({ id: lesson, qid:next_id })">Skip</a>
+          </div>
+        </div>
+      </div>
+    </div>
