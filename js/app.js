@@ -148,37 +148,6 @@ angular
 
                     }
                 ]
-            },
-            {
-                "name": "C",
-                "description": "Test out of 15 skills",
-                "id": "C",
-                "lessons": [
-                    {
-                        "id": 0,
-                        "name": "Learn Arabic",
-                        "description": "Most Phases spoken at a language",
-                        "progress": 0,
-                        "icon": "images/ex1.png"
-
-                    },
-                    {
-                        "id": 1,
-                        "name": "Learn Arabic",
-                        "description": "Most Phases spoken at a language",
-                        "progress": 0,
-                        "icon": "images/ex2.png"
-
-                    },
-                    {
-                        "id": 2,
-                        "name": "Learn Arabic",
-                        "description": "Most Phases spoken at a language",
-                        "progress": 0,
-                        "icon": "images/ex3.png"
-
-                    }
-                ]
             }];
             $cookies.put('lessons_group', angular.toJson($scope.lessons_group));
         }
